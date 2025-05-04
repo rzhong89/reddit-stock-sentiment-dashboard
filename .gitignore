@@ -1,0 +1,189 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# AWS credentials and config
+.aws/
+aws-credentials.json
+
+# Terraform state and variables
+terraform.tfstate
+terraform.tfstate.backup
+*.tfstate*
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+
+# Lambda deployment packages
+*.zip
+lambda_*.zip
+lambda_*/package/
+*/package/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Build outputs
+dist/
+build/
+
+# Temporary folders
+tmp/
+temp/
+
+# API keys and secrets (extra safety)
+*secret*
+*key*
+*credentials*
+config.json
+
+# Sensitive configuration files
+.env*
+*config.prod*
+*production*
+*staging*
+*.pem
+*.p12
+*.jks
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# pytest cache
+.pytest_cache/
+
+# mypy cache
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Data files (CSV, JSON data files)
+*.csv
+*.parquet
+*.json.gz
+data/
+datasets/
+sample_data/
+output/
+
+# AWS deployment artifacts
+*.tar.gz
+lambda-deployment-*
+deployment-*
+cloudformation-*
+sam-*
+
+# Training and model artifacts
+models/
+checkpoints/
+*.model
+*.pkl
+*.h5
+*.ckpt
+wandb/
+mlruns/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Archive files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.war
+*.ear
+*.sar
+*.class
+
+# Large binary files
+*.bin
+*.exe
+*.o
+*.so
+*.dylib
+*.dll
+
+# Documentation build outputs
+docs/_build/
+site/
+_site/
+
+# Package manager files
+package-lock.json
+yarn.lock
+Pipfile.lock
+poetry.lock
+
+# Local development overrides
+docker-compose.override.yml
+docker-compose.local.yml
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Generated configuration files
+*generated*
+auto-*
+*auto.config
