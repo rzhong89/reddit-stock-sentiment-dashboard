@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alternative Consumer Sentiment Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Alternative Consumer Sentiment Dashboard</h1>
+            <p>Analyzing Reddit posts for public companies</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'dashboard-tab')">Dashboard</button>
+            <button class="tab-button" onclick="openTab(event, 'search-tab')">Ticker Search</button>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard-tab" class="tab-content active">
+            <div class="filters">
+                <div>
+                    <label for="ticker-select">Filter by Company:</label>
+                    <select id="ticker-select">
+                        <option value="ALL">All Companies</option>
+                        <!-- Tickers will be populated by JavaScript -->
+                    </select>
+                </div>
+                <div>
+                    <label for="type-select">Filter by Content:</label>
+                    <select id="type-select">
+                        <option value="all">Posts & Comments</option>
+                        <option value="posts">Posts Only</option>
+                        <option value="comments">Comments Only</option>
+                    </select>
+                </div>
+            </div>
+
+            <main class="dashboard-grid">
+                <div class="chart-container" id="line-chart-container">
+                    <h2>Sentiment Trend</h2>
+                    <canvas id="sentiment-line-chart"></canvas>
+                </div>
+                <div class="chart-container" id="bar-chart-container">
+                    <h2>Sentiment Breakdown</h2>
+                    <canvas id="sentiment-bar-chart"></canvas>
+                </div>
+                <div class="chart-container" id="posts-table-container">
+                    <h2>Recent Posts</h2>
+                    <div id="posts-table"></div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Ticker Search Tab -->
+        <div id="search-tab" class="tab-content">
+            <div class="ticker-search-section">
+            <h2>Search Specific Ticker</h2>
+            <div class="search-form">
+                <div class="search-inputs">
+                    <input type="text" id="ticker-input" placeholder="Enter ticker (e.g., AAPL, TSLA)" maxlength="5">
+                    <select id="timeframe-select">
+                        <option value="1h">Last 1 Hour</option>
+                        <option value="6h">Last 6 Hours</option>
+                        <option value="24h" selected>Last 24 Hours</option>
+                        <option value="2d">Last 2 Days</option>
+                        <option value="7d">Last 7 Days</option>
+                    </select>
+                    <button id="search-btn" onclick="searchTicker()">Search</button>
+                </div>
+                <div id="search-status" class="search-status"></div>
+            </div>
+            
+            <!-- Search Results -->
+            <div id="search-results" class="search-results" style="display: none;">
+                <div class="search-summary">
+                    <h3>Search Results for <span id="searched-ticker"></span></h3>
+                    <div class="summary-stats">
+                        <div class="stat">
+                            <span class="stat-label">Total Items:</span>
+                            <span id="total-items">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Posts:</span>
+                            <span id="total-posts">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Comments:</span>
+                            <span id="total-comments">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Avg Score:</span>
+                            <span id="avg-score">0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="search-charts">
+                    <div class="chart-container">
+                        <h4>Sentiment Distribution</h4>
+                        <canvas id="search-sentiment-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="search-posts">
+                    <h4>Sample Posts & Comments</h4>
+                    <div id="search-posts-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Configuration -->
+    <script src="config.js"></script>
+    <!-- Our custom application script -->
+    <script src="app.js"></script>
+</body>
+</html>
