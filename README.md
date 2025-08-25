@@ -13,7 +13,7 @@ A production-ready, event-driven data pipeline that ingests Reddit investment di
 
 ## Table of Contents
 - [Project Overview](#project-overview)
-- [Live Demo](#live-demo)
+- [Live Demo](#demo)
 - [Architecture](#architecture)
 - [Key Features](#key-features)
 - [Tech Stack & Rationale](#tech-stack--rationale)
@@ -32,11 +32,10 @@ This project tackles the challenge of extracting structured, actionable signals 
 
 The core of the project is an event-driven architecture that is highly scalable, resilient, and cost-efficient, making it suitable for handling the unpredictable, spiky nature of social media data. The entire infrastructure is defined using Terraform, enabling consistent, reproducible deployments and demonstrating best practices in Infrastructure as Code (IaC).
 
-## Live Demo
+## Demo
 
-**[Link to your live dashboard here]**
+**[Recording Link](https://drive.google.com/file/d/1LC2W2u-2q9IX-g3ngiaSevu6Wv4zMLlx/view?usp=sharing)**
 
-*(Add a screenshot of your dashboard for extra visual appeal)*
 ![Dashboard Screenshot](https://github.com/rzhong89/reddit-stock-sentiment-dashboard/blob/5a1eb82ef6757bac448d09fc1ea4d4ab5b390755/screenshot.png)
 
 ## Architecture
