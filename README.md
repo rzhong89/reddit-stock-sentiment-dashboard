@@ -37,7 +37,7 @@ The core of the project is an event-driven architecture that is highly scalable,
 **[Link to your live dashboard here]**
 
 *(Add a screenshot of your dashboard for extra visual appeal)*
-![Dashboard Screenshot](https://placehold.co/800x400/2d3748/ffffff?text=Dashboard+Screenshot+Here)
+![Dashboard Screenshot](https://github.com/rzhong89/reddit-stock-sentiment-dashboard/blob/5a1eb82ef6757bac448d09fc1ea4d4ab5b390755/screenshot.png)
 
 ## Architecture
 
