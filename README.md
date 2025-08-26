@@ -13,7 +13,7 @@ A production-ready, event-driven data pipeline that ingests Reddit investment di
 
 ## Table of Contents
 - [Project Overview](#project-overview)
-- [Live Demo](#demo)
+- [Demo](#demo)
 - [Architecture](#architecture)
 - [Key Features](#key-features)
 - [Tech Stack & Rationale](#tech-stack--rationale)
