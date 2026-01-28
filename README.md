@@ -13,7 +13,6 @@ A production-ready, event-driven data pipeline that ingests Reddit investment di
 
 ## Table of Contents
 - [Project Overview](#project-overview)
-- [Demo](#demo)
 - [Architecture](#architecture)
 - [Key Features](#key-features)
 - [Tech Stack & Rationale](#tech-stack--rationale)
@@ -31,12 +30,6 @@ A production-ready, event-driven data pipeline that ingests Reddit investment di
 This project tackles the challenge of extracting structured, actionable signals from the high volume of noisy, unstructured data on investment-focused subreddits. It implements a fully serverless AWS data pipeline that automates the entire process from data ingestion and NLP enrichment to data warehousing, querying, and visualization.
 
 The core of the project is an event-driven architecture that is highly scalable, resilient, and cost-efficient, making it suitable for handling the unpredictable, spiky nature of social media data. The entire infrastructure is defined using Terraform, enabling consistent, reproducible deployments and demonstrating best practices in Infrastructure as Code (IaC).
-
-## Demo
-
-**[Recording Link](https://drive.google.com/file/d/1LC2W2u-2q9IX-g3ngiaSevu6Wv4zMLlx/view?usp=sharing)**
-
-![Dashboard Screenshot](https://github.com/rzhong89/reddit-stock-sentiment-dashboard/blob/5a1eb82ef6757bac448d09fc1ea4d4ab5b390755/screenshot.png)
 
 ## Architecture
 
