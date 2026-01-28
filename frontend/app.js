@@ -148,8 +148,97 @@ function renderDashboard(processedData) {
 
     sentimentLineChart = new Chart(lineChartCanvas, {
         type: 'line',
-        data: processedData.lineChartData,
-        options: { responsive: true, maintainAspectRatio: false }
+        data: {
+            labels: processedData.lineChartData.labels,
+            datasets: [
+                {
+                    label: 'Positive',
+                    data: processedData.lineChartData.datasets[0].data,
+                    borderColor: '#00ff88',
+                    backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                    borderWidth: 2,
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: '#00ff88',
+                    pointBorderColor: '#0a0e13',
+                    pointBorderWidth: 2
+                },
+                {
+                    label: 'Negative',
+                    data: processedData.lineChartData.datasets[1].data,
+                    borderColor: '#ff3366',
+                    backgroundColor: 'rgba(255, 51, 102, 0.1)',
+                    borderWidth: 2,
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: '#ff3366',
+                    pointBorderColor: '#0a0e13',
+                    pointBorderWidth: 2
+                },
+                {
+                    label: 'Neutral',
+                    data: processedData.lineChartData.datasets[2].data,
+                    borderColor: '#6b8caf',
+                    backgroundColor: 'rgba(107, 140, 175, 0.1)',
+                    borderWidth: 2,
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: '#6b8caf',
+                    pointBorderColor: '#0a0e13',
+                    pointBorderWidth: 2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#e8edf3',
+                        font: {
+                            family: "'JetBrains Mono', monospace",
+                            size: 12
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: 'rgba(125, 141, 160, 0.1)',
+                        borderColor: 'rgba(125, 141, 160, 0.2)'
+                    },
+                    ticks: {
+                        color: '#7d8da0',
+                        font: {
+                            family: "'IBM Plex Mono', monospace",
+                            size: 10
+                        }
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'rgba(125, 141, 160, 0.1)',
+                        borderColor: 'rgba(125, 141, 160, 0.2)'
+                    },
+                    ticks: {
+                        color: '#7d8da0',
+                        font: {
+                            family: "'IBM Plex Mono', monospace",
+                            size: 10
+                        }
+                    }
+                }
+            },
+            animation: {
+                duration: 1000,
+                easing: 'easeOutQuart'
+            }
+        }
     });
 
     sentimentBarChart = new Chart(barChartCanvas, {
@@ -163,10 +252,62 @@ function renderDashboard(processedData) {
                     processedData.barChartData.NEGATIVE,
                     processedData.barChartData.NEUTRAL
                 ],
-                backgroundColor: ['green', 'red', 'gray']
+                backgroundColor: [
+                    'rgba(0, 255, 136, 0.7)',
+                    'rgba(255, 51, 102, 0.7)',
+                    'rgba(107, 140, 175, 0.7)'
+                ],
+                borderColor: [
+                    '#00ff88',
+                    '#ff3366',
+                    '#6b8caf'
+                ],
+                borderWidth: 2
             }]
         },
-        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: 'rgba(125, 141, 160, 0.1)',
+                        borderColor: 'rgba(125, 141, 160, 0.2)'
+                    },
+                    ticks: {
+                        color: '#7d8da0',
+                        font: {
+                            family: "'IBM Plex Mono', monospace",
+                            size: 10
+                        }
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'rgba(125, 141, 160, 0.1)',
+                        borderColor: 'rgba(125, 141, 160, 0.2)'
+                    },
+                    ticks: {
+                        color: '#7d8da0',
+                        font: {
+                            family: "'IBM Plex Mono', monospace",
+                            size: 11,
+                            weight: '600'
+                        }
+                    }
+                }
+            },
+            animation: {
+                duration: 1000,
+                easing: 'easeOutQuart'
+            }
+        }
     });
 
     let tableHTML = `
@@ -300,48 +441,77 @@ function showSearchStatus(message, type) {
 function displaySearchResults(data) {
     const searchResults = document.getElementById('search-results');
     const searchedTicker = document.getElementById('searched-ticker');
-    
+
     searchedTicker.textContent = data.ticker;
-    
-    document.getElementById('total-items').textContent = data.summary.total_items;
-    document.getElementById('total-posts').textContent = data.summary.posts;
-    document.getElementById('total-comments').textContent = data.summary.comments;
-    document.getElementById('avg-score').textContent = data.summary.average_score;
-    
+
+    // Animate numbers counting up
+    animateNumber('total-items', data.summary.total_items);
+    animateNumber('total-posts', data.summary.posts);
+    animateNumber('total-comments', data.summary.comments);
+    animateNumber('avg-score', data.summary.average_score, true);
+
     createSearchSentimentChart(data.summary.sentiment_breakdown);
-    
+
     displaySearchPosts(data.data);
-    
+
     searchResults.style.display = 'block';
+}
+
+// Animate number counting effect
+function animateNumber(elementId, targetValue, isDecimal = false) {
+    const element = document.getElementById(elementId);
+    const duration = 800; // milliseconds
+    const steps = 30;
+    const increment = targetValue / steps;
+    let current = 0;
+    let step = 0;
+
+    const timer = setInterval(() => {
+        step++;
+        current += increment;
+
+        if (step >= steps) {
+            current = targetValue;
+            clearInterval(timer);
+        }
+
+        if (isDecimal) {
+            element.textContent = current.toFixed(1);
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, duration / steps);
 }
 
 function createSearchSentimentChart(sentimentBreakdown) {
     const ctx = document.getElementById('search-sentiment-chart').getContext('2d');
-    
+
     if (window.searchSentimentChart) {
         window.searchSentimentChart.destroy();
     }
-    
+
     const colors = {
-        'POSITIVE': '#28a745',
-        'NEGATIVE': '#dc3545',
-        'NEUTRAL': '#6c757d',
-        'MIXED': '#ffc107'
+        'POSITIVE': '#00ff88',
+        'NEGATIVE': '#ff3366',
+        'NEUTRAL': '#6b8caf',
+        'MIXED': '#ffd700'
     };
-    
+
     const labels = Object.keys(sentimentBreakdown);
     const values = Object.values(sentimentBreakdown);
     const backgroundColors = labels.map(label => colors[label]);
-    
+    const borderColors = labels.map(label => colors[label]);
+
     window.searchSentimentChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
             labels: labels,
             datasets: [{
                 data: values,
-                backgroundColor: backgroundColors,
-                borderWidth: 2,
-                borderColor: '#fff'
+                backgroundColor: backgroundColors.map(color => color + '99'), // Add transparency
+                borderColor: borderColors,
+                borderWidth: 3,
+                hoverOffset: 10
             }]
         },
         options: {
@@ -349,8 +519,39 @@ function createSearchSentimentChart(sentimentBreakdown) {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    position: 'bottom'
+                    position: 'bottom',
+                    labels: {
+                        color: '#e8edf3',
+                        font: {
+                            family: "'JetBrains Mono', monospace",
+                            size: 12
+                        },
+                        padding: 15,
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                    }
+                },
+                tooltip: {
+                    backgroundColor: '#12171f',
+                    titleColor: '#00d9ff',
+                    bodyColor: '#e8edf3',
+                    borderColor: '#00d9ff',
+                    borderWidth: 1,
+                    padding: 12,
+                    titleFont: {
+                        family: "'JetBrains Mono', monospace",
+                        size: 13,
+                        weight: 'bold'
+                    },
+                    bodyFont: {
+                        family: "'IBM Plex Mono', monospace",
+                        size: 12
+                    }
                 }
+            },
+            animation: {
+                duration: 1200,
+                easing: 'easeOutQuart'
             }
         }
     });
@@ -456,14 +657,22 @@ function openTab(evt, tabName) {
     for (let i = 0; i < tabContents.length; i++) {
         tabContents[i].classList.remove('active');
     }
-    
+
     const tabButtons = document.getElementsByClassName('tab-button');
     for (let i = 0; i < tabButtons.length; i++) {
         tabButtons[i].classList.remove('active');
     }
-    
-    document.getElementById(tabName).classList.add('active');
+
+    // Add glitch effect on tab switch
+    const targetTab = document.getElementById(tabName);
+    targetTab.classList.add('active');
     evt.currentTarget.classList.add('active');
+
+    // Trigger animation reset
+    targetTab.style.animation = 'none';
+    setTimeout(() => {
+        targetTab.style.animation = '';
+    }, 10);
 }
 
 document.addEventListener('DOMContentLoaded', main);
